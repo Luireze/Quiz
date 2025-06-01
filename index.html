@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HSC Quiz Portal</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -27,7 +26,6 @@
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
 
-    // Nếu người dùng đã đăng nhập, hiển thị thông tin
     if (token && username) {
       document.getElementById('login-btn').style.display = 'none';
       document.getElementById('signup-btn').style.display = 'none';
@@ -37,16 +35,14 @@
       document.getElementById('start-quiz-btn').style.display = 'inline';
     }
 
-    // Xử lý đăng xuất
     document.getElementById('logout-btn').addEventListener('click', () => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
       window.location.reload();
     });
 
-    // Bắt đầu quiz (sẽ chuyển hướng sang trang quiz.html)
     function startQuiz() {
-      window.location.href = 'quiz.html'; // bạn cần tạo file quiz.html sau này
+      window.location.href = 'quiz.html';
     }
   </script>
 </body>
