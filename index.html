@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HSC Quiz Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>HSC Software Engineering Quiz</h1>
+    <div id="user-actions">
+      <button onclick="window.location.href='login.html'" id="login-btn">Login</button>
+      <button onclick="window.location.href='signup.html'" id="signup-btn">Register</button>
+      <span id="user-info" style="display: none;"></span>
+      <button id="logout-btn" style="display: none;">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <h2>Welcome to the HSC Quiz Portal!</h2>
+    <p>Prepare for your Software Engineering exam with randomized, interactive multiple-choice questions.</p>
+    <button onclick="startQuiz()" id="start-quiz-btn" style="display: none;">Start Quiz</button>
+  </main>
+
+  <script>
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+
+    // Nếu người dùng đã đăng nhập, hiển thị thông tin
+    if (token && username) {
+      document.getElementById('login-btn').style.display = 'none';
+      document.getElementById('signup-btn').style.display = 'none';
+      document.getElementById('user-info').style.display = 'inline';
+      document.getElementById('user-info').innerText = `Hello, ${username}`;
+      document.getElementById('logout-btn').style.display = 'inline';
+      document.getElementById('start-quiz-btn').style.display = 'inline';
+    }
+
+    // Xử lý đăng xuất
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      window.location.reload();
+    });
+
+    // Bắt đầu quiz (sẽ chuyển hướng sang trang quiz.html)
+    function startQuiz() {
+      window.location.href = 'quiz.html'; // bạn cần tạo file quiz.html sau này
+    }
+  </script>
+</body>
+</html>

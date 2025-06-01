@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Create Your Account</h2>
+    <form id="signupForm">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+    <p id="status-msg"></p>
+  </div>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const statusMsg = document.getElementById('status-msg');
+
+      try {
+        const res = await fetch('http://127.0.0.1:5500/signup.html', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          statusMsg.style.color = 'green';
+          statusMsg.textContent = 'Đăng ký thành công! Chuyển sang trang đăng nhập...';
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 2000);
+        } else {
+          statusMsg.style.color = 'red';
+          statusMsg.textContent = data.msg || 'Đăng ký thất bại.';
+        }
+      } catch (err) {
+        statusMsg.style.color = 'red';
+        statusMsg.textContent = 'Không thể kết nối đến máy chủ.';
+      }
+    });
+  </script>
+</body>
+</html>
